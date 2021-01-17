@@ -91,9 +91,42 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+    # check for equal source and target
+    if source == target:
+        person = people[source]["name"]
+        print(f"{person} has starred in all movies as {person}")
+        return []
+    start = Node(source, None, None)
+    #as we want the shortest path, a queue is used to implement BFS
+    frontier = QueueFrontier()
+    frontier.add(start)
 
-    # TODO
-    raise NotImplementedError
+    explored = set()
+
+    # loop for solution
+    while True:
+        # check for no solution
+        if frontier.empty():
+            return None
+
+        current_node = frontier.remove()
+
+        # add neighbors to queue if not already explored
+        explored.add(current_node.state)
+        for movie, person in neighbors_for_person(current_node.state):
+            if not frontier.contains_state(person) and person not in explored:
+                child_node = Node(person, current_node, movie)
+                # check for solution and return path
+                if child_node.state == target:
+                    path = []
+                    current_node = child_node
+                    while current_node.parent is not None:
+                        path.append((current_node.action,current_node.state))
+                        current_node = current_node.parent
+                    path.reverse()
+                    return path
+                frontier.add(child_node)
+
 
 
 def person_id_for_name(name):
