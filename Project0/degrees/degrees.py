@@ -96,6 +96,7 @@ def shortest_path(source, target):
         person = people[source]["name"]
         print(f"{person} has starred in all movies as {person}")
         return []
+        
     start = Node(source, None, None)
     #as we want the shortest path, a queue is used to implement BFS
     frontier = QueueFrontier()
