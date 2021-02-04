@@ -255,7 +255,7 @@ class MinesweeperAI():
                         self.knowledge.append(Sentence(new_cells,new_count))
 
 
-        while self.knowledge != iter_knowledge:
+        if self.knowledge != iter_knowledge:
             return self.update_knowledge()
         return self.knowledge
 
