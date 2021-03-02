@@ -1,0 +1,29 @@
+Background
+-Pages ranked by links to page
+-not perfect due to possible artificial inflation
+-can be improved, for instance by links from other websites
+-important websites more highly weighted, multiple strategies
+
+Random Surfer Model
+-random surfer model, which considers the behavior of a hypothetical surfer on the internet who clicks on links
+ at random
+-duplicate links are treated as one and self referencing links are ignored
+-the ranking can be based on probability of being on the page
+-links are weighted automatically due to chance of being on important pages higher
+-Markov chains can be used for implementation
+-issues may occur in a network of pages with isolated groups due to model getting stuck
+-a damping factor d may be used where there is a probability of 1-d to pick a random page in corpus rather than
+ from page links, d is usually set to be 0.85
+-proportion of samples may be used for page ranks
+
+Iterative Algorithm
+-Recursion
+-PR(p) be the PageRank of a given page p: the probability that a random surfer ends up on that page.
+ How do we define it?
+-With probability 1 - d, the surfer chose a page at random and ended up on page p.
+-With probability d, the surfer followed a link from a page i to page p.
+-In first case we have 1-d/N as 1-d probability is the same from all N pages
+-In second case, assuming page i links to p we have PR(i):probability of being on i and NumLinks(i),
+ given NumLinks(i) links on i, probability of picking p link is d*PR(i)/NumLinks(i)
+-PR(p) = 1-d/N + d(SUM_i){PR(i)/NumLinks(i)}
+-This gives us an iterative formula to implement
